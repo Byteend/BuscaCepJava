@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Busca CEP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+            padding: 30px;
+            width: 420px;
+        }
+        h1 {
+            margin-top: 0;
+            color: #1d3557;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+        }
+        button {
+            padding: 10px 16px;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .alert {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .resultado {
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+        .resultado p {
+            margin: 6px 0;
+        }
+        strong {
+            color: #0f172a;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Buscar CEP</h1>
+
+        <form method="post" action="/consultar">
+            <input type="text" name="cep" placeholder="Digite o CEP" maxlength="9" required>
+            <button type="submit">Buscar</button>
+        </form>
+
+        <div th:if="${mensagemErro}" class="alert" th:text="${mensagemErro}"></div>
+
+        <div th:if="${resultado != null}" class="resultado">
+            <p><strong>CEP:</strong> <span th:text="${resultado.cep}"></span></p>
+            <p><strong>Logradouro:</strong> <span th:text="${resultado.logradouro}"></span></p>
+            <p><strong>Bairro:</strong> <span th:text="${resultado.bairro}"></span></p>
+            <p><strong>Cidade:</strong> <span th:text="${resultado.localidade}"></span></p>
+            <p><strong>Estado:</strong> <span th:text="${resultado.uf}"></span></p>
+            <p><strong>Complemento:</strong> <span th:text="${resultado.complemento}"></span></p>
+            <p><strong>DDD:</strong> <span th:text="${resultado.ddd}"></span></p>
+        </div>
+    </div>
+</body>
+</html>
